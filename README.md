@@ -1,6 +1,7 @@
 # Employee Tracker
 Command-line app that allows a business owner to track employees
 
+## User Story
 As a business owner, this app allows you to view and manage the departments in your company, the roles of each employee, and lets you organize your business. 
 
 ## Requirements

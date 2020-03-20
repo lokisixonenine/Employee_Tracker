@@ -36,3 +36,60 @@ connection.query("SELECT * FROM employees", function (err, res) {
     value: emp.id
     }));
 });
+
+start();
+
+function start() {
+    inquirer
+        .prompt({
+            name: "action",
+            type: "list",
+            message: "What would you like to do?",
+            choices: [
+                "Add employee to a department", 
+                "View departments",
+                "Delete a department", 
+                "Add an employee role",
+                "View employee roles", 
+                "Delete an employee's role/s",
+                "Add an employee", 
+                "View an employee",
+                "Update an employee's role/s", 
+                "End"
+            ]
+        })
+        .then(function (res){
+            switch(res.action) {
+                case "Add employee to a department":
+                    addDepartment();
+                    break;
+                case "View departments":
+                    viewDepartment();
+                    break;
+                case "Delete a department":
+                    deleteDepartment():
+                    break;
+                case "Add an employee roll":
+                    addRole();
+                    break;
+                case "View employee roles":
+                    viewRole();
+                    break;
+                case "Delete an employee's role/s":
+                    deleteRole();
+                    break;
+                case "Add an employee":
+                    addEmployee();
+                    break;
+                case "View an employee":
+                    viewEmployee();
+                    break;
+                case "Update an employee's role/s":
+                    updateRole();
+                    break;
+                case "End":
+                    end();
+                    break;
+            }
+        });
+}

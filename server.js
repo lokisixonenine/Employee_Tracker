@@ -39,6 +39,7 @@ connection.query("SELECT * FROM employees", function (err, res) {
 
 start();
 
+// this part of the code starts the CLI app
 function start() {
     inquirer
         .prompt({
@@ -92,4 +93,33 @@ function start() {
                     break;
             }
         });
+}
+
+// Adding new departments
+function addDepartment(data) {
+    inquirer
+    .prompt([
+    {
+        type: "input",
+        message: "What department would you like to add?",
+        name: "name"
+    }
+    ])
+    .then(function (res){
+        connection.query(
+            "INSERT INTO departments SET ?",
+            {
+                name: res.name
+            },
+            function(error, res) {
+                if(error) throw error;
+            }
+        );
+    })
+    .then(function() {
+        console.log("--DEPARTMENT ADDED--");
+    })
+    .then(function() {
+        start();
+    });
 }

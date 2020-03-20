@@ -123,3 +123,13 @@ function addDepartment(data) {
         start();
     });
 }
+
+// View a department
+function viewDepartment() {
+    console.log("Departments: \n");
+    connection.query("SELECT * FROM departments", function (error, res) {
+        console.log(res);
+        start();
+    });
+}
+

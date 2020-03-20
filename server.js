@@ -133,3 +133,41 @@ function viewDepartment() {
     });
 }
 
+// Add an employee role
+function addRole() {
+    inquirer
+    .prompt([
+        {
+            type: "input",
+            message: "What would you like to call this new role?",
+            name: "name"
+        },
+        {
+            type: "input",
+            message: "What is the offered salary for this role?",
+            name: "salary"
+        },
+        {
+            type: "list",
+            message: "What department does this role belong to?",
+            name: "id",
+            choices: listDepartment
+        }
+    ])
+    .then(function (res) {
+        coneection.query("INSERT INTO roles SET ?",
+        {
+            title: res.name,
+            salary: res.salary,
+            department_id: res.id
+        },
+        function(error, res) {
+            console.log(error);
+            if(error) throw error;
+        }
+        );
+    })
+    .then(function(){
+        start();
+    });
+}

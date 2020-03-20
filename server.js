@@ -67,7 +67,7 @@ function start() {
                     viewDepartment();
                     break;
                 case "Delete a department":
-                    deleteDepartment():
+                    deleteDepartment();
                     break;
                 case "Add an employee roll":
                     addRole();

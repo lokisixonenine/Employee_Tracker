@@ -2,6 +2,7 @@ const mysql = require("mysql");
 const inquirer = require("inquirer");
 const connection = mysql.createConnection({
     host: "localhost",
+    port: 8080,
     user: "root",
     password: "password",
     database: "employeeDB"
@@ -269,3 +270,7 @@ function end() {
     connection.end();
     process.exit();
 }
+
+app.listen(PORT, function () {
+    console.log("I am the port. I am listening to you: http://localhost:" + PORT);
+});

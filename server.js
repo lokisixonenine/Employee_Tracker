@@ -188,4 +188,36 @@ function viewRole() {
 // delete an employee's role
 function deleteRole() {
     let query = `SELECT * FROM roles`;
+    connection.querey(query, (err, results) => {
+        if (err) throw error;
+        inquirer
+        .prompt ([
+            {
+                name: "deleteRole",
+                type: "list",
+                choices: function() {
+                    let choiceArray = results.map(choice => choice.title);
+                    return choiceArray;
+                },
+                message: "Which role would you like to delete?"
+            }
+        ])
+        .then(answer=> {
+            connection.query(`DELETE FROM roles WHERE ?`, {
+                title: answer.deleteRole
+            });
+            start();
+        });
+    });
+}
+
+// this section deletes an employee
+function deleteEmployee() {
+    inquirer.prompt([
+        {
+            name: "employeeDelete",
+            type: "input",
+            message: "Enter the ID for the employee that you wish to delete.:"
+        }
+    ]);
 }

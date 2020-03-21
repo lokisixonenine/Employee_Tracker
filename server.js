@@ -1,6 +1,11 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
-const connection = require("./config/connection");
+const connection = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "password",
+    database: "employeeDB"
+});
 
 const interFace = [
     "View all Employees",
@@ -90,6 +95,9 @@ function start() {
                     break;
                 case "End":
                     end();
+                    break;
+                case "Delete employee":
+                    deleteEmployee();
                     break;
             }
         });
@@ -220,4 +228,44 @@ function deleteEmployee() {
             message: "Enter the ID for the employee that you wish to delete.:"
         }
     ]);
+}
+
+// update an employee's role
+function updateRole(data) {
+    console.log("...UPDATING EMPLOYEE ROLE...");
+    inquirer
+        .prompt ([
+            {
+                type: "list",
+                message: "Which employee would you like to update?",
+                name: "emp",
+                choices: listEmployees
+            },
+            {
+                type: "list",
+                message: "What is this employee's new role?",
+                name: "role",
+                choices: listEmployeeRoles
+            }
+        ])
+        .then(function(res) {
+            connection.query(
+                `UPDATE employees SET role_id = ${res.role} WHERE id = ${res.map}`,
+                function (error, res) {
+                    if (err) throw error;
+                }
+            );
+        })
+        .then (function () {
+            console.log('EMPLOYEE ROLE UPDATED.');
+        })
+        .then (function () {
+            start();
+        });
+}
+
+function end() {
+    console.log("ALL CHANGES MADE.");
+    connection.end();
+    process.exit();
 }

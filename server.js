@@ -21,17 +21,17 @@ let listEmployeeRoles;
 let listEmployees;
 
 connection.query("SELECT * FROM departments", function (err, res) {
-    if (err) throw err;
+    if (err) throw error;
     listDepartment = res.map(role => ({ name: dep.title, value: dep.id }));
 });
 
 connection.query("SELECT * FROM roles", function(err, res) {
-    if (err) throw err;
+    if (err) throw error;
     listEmployeeRoles = res.map(role => ({ name: role.title, value: role.id}));
 });
 
 connection.query("SELECT * FROM employees", function (err, res) {
-    if (err) throw err;
+    if (err) throw error;
     listEmployees = res.map(role => ({ name: `${emp.first_name}${emp.last_name}`,
     value: emp.id
     }));
@@ -112,7 +112,7 @@ function addDepartment(data) {
                 name: res.name
             },
             function(error, res) {
-                if(error) throw error;
+                if(err) throw error;
             }
         );
     })
@@ -163,11 +163,29 @@ function addRole() {
         },
         function(error, res) {
             console.log(error);
-            if(error) throw error;
+            if(err) throw error;
         }
         );
     })
     .then(function(){
+        console.log("ROLE ADDED.");
+    })
+    .then(function(){
         start();
     });
+}
+
+// view employee role/s
+function viewRole() {
+    let query = `SELECT title AS "Title" FROM roles`;
+    conneciotn.query(query, (err, results) => {
+        if(err) throw (error);
+        console.log("ALL ROLES."), results;
+        start();
+    });
+}
+
+// delete an employee's role
+function deleteRole() {
+    let query = `SELECT * FROM roles`;
 }
